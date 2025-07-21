@@ -12,11 +12,9 @@ load_dotenv()  # Load .env file
 
 # --- DB CONFIG ---
 DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-if DATABASE_URL is None:
-    st.error("DATABASE_URL not found in environment variables.")
-else:
-    conn = psycopg2.connect(DATABASE_URL)
+conn = psycopg2.connect(DATABASE_URL)
 
 # --- LOAD & FLATTEN DATA ---
 @st.cache_data
