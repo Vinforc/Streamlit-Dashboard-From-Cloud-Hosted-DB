@@ -6,16 +6,17 @@ import altair as alt
 from datetime import datetime
 import os
 from dotenv import load_dotenv
+from urllib.parse import urlparse
 
 load_dotenv()  # Load .env file
+
 # --- DB CONFIG ---
-conn = psycopg2.connect(
-    dbname=os.getenv("DB_NAME"),
-    user=os.getenv("DB_USER"),
-    password=os.getenv("DB_PASSWORD"),
-    host=os.getenv("DB_HOST"),
-    port=os.getenv("DB_PORT")
-)
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if DATABASE_URL is None:
+    st.error("DATABASE_URL not found in environment variables.")
+else:
+    conn = psycopg2.connect(DATABASE_URL)
 
 # --- LOAD & FLATTEN DATA ---
 @st.cache_data
